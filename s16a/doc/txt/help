@@ -1,0 +1,17 @@
+    View <!<bold>!>help<!<bold>!>
+
+    The <!<bold>!>--help<!<bold>!> option is used to get help with the <!<fg cyan; bold>!>s16a<!<reset>!>
+    application.
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help<!<reset>!>
+
+    On its own will dump a list of <!<bold>!>options<!<bold>!>, <!<bold>!>switches<!<bold>!> and
+    <!<bold>!>additional<!<bold>!> inforation that we can get help with.
+
+    For example, <!<bold>!>--help<!<bold>!> lists the <!<bold>!>--asm<!<bold>!> option, if we 
+    want more details about the <!<bold>!>--asm<!<bold>!> option we can do:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --asm<!<reset>!>
+
+    And <!<fg cyan; bold>!>s16a<!<reset>!> will print out some more detailed information
+    about the <!<bold>!>--asm<!<bold>!> option and how it can be used.

@@ -1,0 +1,141 @@
+    Set <!<fg cyan; bold>!>s16<!<fg white>!> register size<!<reset>!>.
+
+
+    The <!<fg cyan; bold>!>s16<!<reset>!> system can be run in <!<fg red; bold>!>8<!<reset>!>, <!<fg red; bold>!>16<!<reset>!> or <!<fg red; bold>!>32<!<reset>!> bit register
+    modes.
+
+    First, what are registers? In the <!<fg cyan; bold>!>s16<!<reset>!> system, registers
+    are just memory locations where we can store data.
+
+    The registers are actually stored in the <!<bold>!>header<!<bold>!> in the
+    <!<bold>!>code segment<!<bold>!> (see <!<bold>!>--help model<!<bold>!>) - the <!<bold>!>register buffer<!<bold>!>
+    is stored at offset <!<fg red; bold>!>80<!<reset>!> in the header.
+
+
+  File structure
+
+    The <!<bold>!>header<!<bold>!> starts at byte <!<fg red; bold>!>0<!<reset>!> and stores some meta data
+    about the executable, then we have the <!<bold>!>register buffer<!<bold>!>
+    itself at offset <!<fg red; bold>!>80<!<reset>!> just before the <!<bold>!>read-only<!<bold>!> section.
+
+    After the <!<bold>!>register buffer<!<bold>!>, we have the <!<bold>!>read-only<!<bold>!>
+    section, followed by the <!<bold>!>read-write<!<bold>!> section and then
+    finally the <!<bold>!>code<!<bold>!> section:
+
+    <!<fg blue>!>
+        +----------------------------------------+
+        | <!<fg red; bold>!>0<!<fg white>!> Header<!<fg blue; bold>!>                               |
+        |                                        |
+        +----------------------------------------+
+        | <!<fg red; bold>!>80<!<fg white>!> Register buffer<!<fg blue; bold>!>                     |
+        |                                        |
+        +----------------------------------------+
+        | <!<fg red; bold>!>?<!<fg white>!> read-only section<!<fg blue; bold>!>                    |
+        |<!<reset>!>
+
+
+    The <!<fg cyan; bold>!>s16<!<reset>!> system needs to know the register size before
+    it can map the data sections because it doesn't know
+    the size of the <!<bold>!>register buffer<!<bold>!>.
+
+    We set that when we assemble the executable using the
+    <!<bold>!>--regsize<!<bold>!> option:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --regsize<!<fg red>!> 2<!<reset>!>
+
+    By default, the <!<bold>!>regsize<!<bold>!> is set to <!<fg red; bold>!>4<!<reset>!> (<!<fg red; bold>!>32<!<reset>!>-bit), this
+    means that (not all, most) registers will be sized
+    at <!<fg red; bold>!>4<!<reset>!> bytes (<!<fg red; bold>!>32<!<reset>!>-bits).
+
+    All of this assumes that <!<fg cyan; bold>!>s16<!<reset>!> is configured to allow
+    the request - the system may be configured to reject
+    executables that run on a specific <!<bold>!>--regsize<!<bold>!>.
+
+    So how many registers are there and what are they, how
+    big is the <!<bold>!>register buffer<!<bold>!> and where does <!<bold>!>read-only<!<bold>!>
+    actually begin?
+
+
+  Registers:
+
+    The first <!<fg red; bold>!>6<!<reset>!> registers are read-only:
+
+        <!<bold>!>ROS<!<bold>!>     - <!<bold>!>read-only<!<bold>!> segment
+        <!<bold>!>RWS<!<bold>!>     - <!<bold>!>read-write<!<bold>!> segment
+        <!<bold>!>CS<!<bold>!>      - <!<bold>!>code<!<bold>!> segment
+
+        <!<bold>!>ROO<!<bold>!>     - <!<bold>!>read-only<!<bold>!> offset
+        <!<bold>!>RWO<!<bold>!>     - <!<bold>!>read-write<!<bold>!> offset
+        <!<bold>!>CO<!<bold>!>      - <!<bold>!>code<!<bold>!> offset
+
+    If <!<bold>!>--regsize<!<bold>!> is set to <!<fg red; bold>!>4<!<reset>!>, then each of these are set
+    to <!<fg red; bold>!>4<!<reset>!>-bytes in size. If <!<bold>!>--regsize<!<bold>!> is <!<fg red; bold>!>2<!<reset>!>, then each of 
+    these are set to <!<fg red; bold>!>2<!<reset>!> bytes and so on.
+
+    Next, we have the <!<bold>!>base<!<bold>!>, <!<bold>!>instruction<!<bold>!> and <!<bold>!>stack pointer<!<bold>!>
+    registers:
+
+        <!<bold>!>BP<!<bold>!>      - <!<bold>!>base pointer<!<bold>!> (maxaddr)
+        <!<bold>!>IP<!<bold>!>      - <!<bold>!>instruction pointer<!<bold>!> (offset of _main)
+        <!<bold>!>SP<!<bold>!>      - <!<bold>!>stack pointer<!<bold>!> (maxaddr)
+
+    Each of these will also be sized to <!<bold>!>--regsize<!<bold>!>.
+
+    Next, we have the <!<bold>!>OI<!<bold>!> and <!<bold>!>II<!<bold>!> registers, these are the
+    output and input <!<bold>!>interrupt registers<!<bold>!> and are always
+    sized at <!<fg red; bold>!>1<!<reset>!> byte irrespective of <!<bold>!>--regsize<!<bold>!>.
+
+        <!<bold>!>OI<!<bold>!>      - <!<bold>!>output interrupt<!<bold>!>
+        <!<bold>!>II<!<bold>!>      - <!<bold>!>input interrupt<!<bold>!>
+
+    After that we have the <!<bold>!>FL<!<bold>!> and <!<bold>!>RT<!<bold>!> registers, both of
+    these are also always <!<fg red; bold>!>1<!<reset>!> byte irrespective of the
+    <!<bold>!>--regsize<!<bold>!>:
+
+        <!<bold>!>FL<!<bold>!>      - <!<bold>!>Flags<!<bold>!>
+        <!<bold>!>RT<!<bold>!>      - <!<bold>!>Return<!<bold>!>
+
+    Lastly, we have <!<bold>!>six general-purpose registers<!<bold>!>, these
+    are always sized at <!<bold>!>--regsize<!<bold>!>:
+
+        <!<bold>!>AX<!<bold>!>
+        <!<bold>!>BX<!<bold>!>
+        <!<bold>!>CX<!<bold>!>
+        <!<bold>!>DX<!<bold>!>
+        <!<bold>!>EX<!<bold>!>
+        <!<bold>!>FX<!<bold>!>
+
+    So we have a total of <!<fg red; bold>!>19<!<reset>!> registers, <!<fg red; bold>!>4<!<reset>!> of which are
+    always <!<bold>!>one byte<!<bold>!> in size, the remaining <!<fg red; bold>!>15<!<reset>!> are sized
+    at <!<bold>!>--regsize<!<bold>!>.
+
+        <!<bold>!>--regsize<!<bold>!> <!<fg red; bold>!>1<!<reset>!>     <!<bold>!>Register buffer<!<bold>!> is <!<fg red; bold>!>19<!<reset>!> bytes
+        <!<bold>!>--regsize<!<bold>!> <!<fg red; bold>!>2<!<reset>!>     <!<bold>!>Register buffer<!<bold>!> is <!<fg red; bold>!>34<!<reset>!> bytes
+        <!<bold>!>--regsize<!<bold>!> <!<fg red; bold>!>4<!<reset>!>     <!<bold>!>Register buffer<!<bold>!> is <!<fg red; bold>!>64<!<reset>!> bytes
+
+    If <!<bold>!>--regsize<!<bold>!> is <!<fg red; bold>!>1<!<reset>!> then the <!<bold>!>read-only<!<bold>!> section will
+    be at offset <!<fg red; bold>!>99<!<reset>!>, if <!<bold>!>--regsize<!<bold>!> is <!<fg red; bold>!>2<!<reset>!> then the <!<bold>!>read-only<!<bold>!>
+    section will be at offset <!<fg red; bold>!>114<!<reset>!> and if <!<bold>!>--regsize<!<bold>!> is
+    <!<fg red; bold>!>4<!<reset>!> then the <!<bold>!>read-only<!<bold>!> section will be at offset <!<fg red; bold>!>144<!<reset>!>.
+
+    This is assuming that the executable is running in a
+    <!<bold>!>flat memory model<!<bold>!>.
+
+    If we're in <!<bold>!>split<!<bold>!> or <!<bold>!>multi<!<bold>!> mode then the <!<bold>!>code<!<bold>!> will
+    reside directly below the <!<bold>!>register buffer<!<bold>!> in the
+    header.
+
+    In <!<bold>!>split<!<bold>!>, the <!<bold>!>read-only<!<bold>!> section will have an offset
+    of <!<fg red; bold>!>0<!<reset>!> and the <!<bold>!>read-write<!<bold>!> section resides directly
+    below it in a spearate segment.
+
+    In <!<bold>!>multi<!<bold>!>, both the <!<bold>!>read-only<!<bold>!> and <!<bold>!>read-write<!<bold>!> sections
+    have an offset of <!<fg red; bold>!>0<!<reset>!> as both occupy their own segment.
+
+  
+  See:
+
+    Additional:
+
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help model<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help maxaddr<!<reset>!>

@@ -20,8 +20,8 @@
     global.S16_REGISTER_IP              = 'IP';
     global.S16_REGISTER_SP              = 'SP';
 
-    global.S16_REGISTER_HB              = 'HB';
-    global.S16_REGISTER_HP              = 'HP';
+    // global.S16_REGISTER_HB              = 'HB';
+    // global.S16_REGISTER_HP              = 'HP';
 
     global.S16_REGISTER_OI              = 'OI';
     global.S16_REGISTER_II              = 'II';
@@ -61,8 +61,8 @@
         [global.S16_REGISTER_IP]:       0,
         [global.S16_REGISTER_SP]:       0,
 
-        [global.S16_REGISTER_HB]:       0,
-        [global.S16_REGISTER_HP]:       0,
+        // [global.S16_REGISTER_HB]:       0,
+        // [global.S16_REGISTER_HP]:       0,
         
         [global.S16_REGISTER_OI]:       1,
         [global.S16_REGISTER_II]:       1,

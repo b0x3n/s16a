@@ -1,0 +1,52 @@
+    Specify the byte order
+
+    By default, s16a will map the data and code to the
+    executable file in big-endian byte order.
+
+    This places the least-significant byte first in a
+    16 or 32-bit value, example - if we have:
+
+        0xAABBCCDD
+
+    And we write this to the executable in the default
+    mode, then the bytes are stored in reverse order:
+
+
+        <!<bold>!>offset    <!<fg red>!>0    1    2    3<!<fg blue; bold>!>
+                +----+----+----+----+
+                | <!<fg red; bold>!>DD<!<reset; fg blue>!> | <!<fg red; bold>!>CC<!<reset; fg blue>!> | <!<fg red; bold>!>BB<!<reset; fg blue>!> | <!<fg red; bold>!>AA<!<fg blue; bold>!> |
+                +----+----+----+----+<!<reset>!>
+
+
+    The least valuable or significant byte is stored to
+    the left, with the most significant valued bytes in
+    subsequent locations to the right - this is called
+    big-endian byte-ordering (sometimes referred to as
+    network byte-order).
+
+    We can, if we want, tell s16a to write the binary
+    using little-endian byte ordering (sometimes called
+    host byte-order) - this means the most significant
+    byte would be stored first, so:
+
+        0xAABBCCDD
+
+    Would be stored as:
+    
+
+        <!<bold>!>offset    <!<fg red>!>0    1    2    3<!<fg blue; bold>!>
+                +----+----+----+----+
+                | <!<fg red; bold>!>AA<!<reset; fg blue>!> | <!<fg red; bold>!>BB<!<reset; fg blue>!> | <!<fg red; bold>!>CC<!<reset; fg blue>!> | <!<fg red; bold>!>DD<!<fg blue; bold>!> |
+                +----+----+----+----+<!<reset>!>
+
+
+    To specify little-endian byte order we use the
+    --byteorder option:
+
+        node s16a --byteorder littleendian
+
+    This will set a value in the executable header that
+    tells the s16 system what byte-order to use, assuming
+    the system is configured to allow it, s16 can run in
+    either little-endian (host) or big-endian (network)
+    byte order.

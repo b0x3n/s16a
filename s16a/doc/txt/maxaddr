@@ -1,0 +1,75 @@
+    Set the <!<bold>!>maximum segment address<!<bold>!>
+
+
+    By default, <!<bold>!>--maxaddr<!<bold>!> is set to <!<fg red; bold>!>65,535<!<reset>!> (<!<fg red; bold>!>0xFFFF<!<reset>!>),
+    this tells the <!<fg cyan; bold>!>s16<!<reset>!> system that we require segments
+    of <!<fg red; bold>!>65,536<!<reset>!> bytes (<!<fg red; bold>!>0<!<reset>!>-<!<fg red; bold>!>65535<!<reset>!>, inclusive range).
+
+    This is irrespective of <!<bold>!>model<!<bold>!>, if we're running a
+    <!<bold>!>split<!<bold>!> or <!<bold>!>multi memory model<!<bold>!> then we will get <!<fg red; bold>!>2<!<reset>!> or
+    <!<fg red; bold>!>3<!<reset>!> segments, each <!<fg red; bold>!>65,536<!<reset>!> bytes with a maximum address
+    of <!<fg red; bold>!>65,535<!<reset>!> (<!<fg red; bold>!>0xFFFF<!<reset>!>).
+
+    This matters if you intend to use the <!<bold>!>--regsize<!<bold>!>
+    option, for example - we can't have a <!<bold>!>--regsize<!<bold>!> of
+    <!<fg red; bold>!>1<!<reset>!> and <!<bold>!>--maxaddr<!<bold>!> of <!<fg red; bold>!>0xFFFF<!<reset>!> because most registers
+    will need to be able to store an address and <!<fg red; bold>!>1<!<reset>!>
+    byte isn't enough to address <!<fg red; bold>!>65,536<!<reset>!> locations. If we
+    do want to run with a <!<bold>!>--regsize<!<bold>!> of <!<fg red; bold>!>1<!<reset>!> then we would
+    need to set <!<bold>!>--maxaddr<!<bold>!> to its lowest possible
+    setting which is <!<fg red; bold>!>255<!<reset>!> (<!<fg red; bold>!>0xFF<!<reset>!>), meaning the address
+    range for our segments would be <!<fg red; bold>!>0<!<reset>!>-<!<fg red; bold>!>255<!<reset>!>, inclusive.
+
+    So the <!<bold>!>--regsize<!<bold>!> and <!<bold>!>--maxaddr<!<bold>!> must be set to values
+    that are compatible with one another. The highest we
+    can set <!<bold>!>--maxaddr<!<bold>!> to is <!<fg red; bold>!>0xFFFFFFFF<!<reset>!>, this doesn't mean
+    the browser will let <!<fg cyan; bold>!>s16<!<reset>!> create segments that large
+    but you're welcome to try.
+
+    So the default is <!<fg red; bold>!>65,535<!<reset>!> which means we can typically
+    run <!<fg cyan; bold>!>s16<!<reset>!> with a <!<bold>!>--regsize<!<bold>!> of <!<fg red; bold>!>4<!<reset>!> (default) or <!<fg red; bold>!>2<!<reset>!>.
+
+    We could, if we wanted to - run with a <!<bold>!>--regsize<!<bold>!> of
+    <!<fg red; bold>!>1<!<reset>!> byte and set the <!<bold>!>--maxaddr<!<bold>!> to <!<fg red; bold>!>255<!<reset>!> - with the <!<bold>!>header<!<bold>!>
+    and <!<bold>!>register buffer<!<bold>!> taking up <!<fg red; bold>!>99<!<reset>!> bytes we are
+    left with very little room for <!<bold>!>code<!<bold>!> and the <!<bold>!>stack<!<bold>!>
+    but you can do it - if you run a <!<bold>!>split<!<bold>!> or<!<bold>!> multi<!<bold>!>
+    model you might even be able to build something
+    useful:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --regsize<!<fg red>!> 1<!<fg white>!> --maxaddr<!<fg red>!> 255 <!<fg white>!>--model multi<!<reset>!>
+
+    This would generate an executable that asks for three
+    segments (<!<bold>!>multi<!<bold>!>), each with a <!<bold>!>--maxaddr<!<bold>!> of <!<fg red; bold>!>255<!<reset>!>, so we
+    get <!<fg red; bold>!>3<!<reset>!> segments of <!<fg red; bold>!>256<!<reset>!>, one for the <!<bold>!>header<!<bold>!>, <!<bold>!>code<!<bold>!> and
+    <!<bold>!>stack<!<bold>!>, one for <!<bold>!>read-only<!<bold>!> data and one for <!<bold>!>read-write<!<bold>!>
+    data.
+
+    All of this assumes the <!<fg cyan; bold>!>s16<!<reset>!> system actually allows
+    you to specify a <!<bold>!>--maxaddr<!<bold>!>, it might be configured in
+    such a way that it doesn't allow the application to
+    run unless a specific <!<bold>!>--maxaddr<!<bold>!> or <!<bold>!>--regsize<!<bold>!> is
+    used.
+
+    Options like <!<bold>!>--regsize<!<bold>!> and <!<bold>!>--maxaddr<!<bold>!> aren't so much
+    <!<bold>!>instructions<!<bold>!> as they are <!<bold>!>requests<!<bold>!>, your application
+    is asking the host <!<fg cyan; bold>!>s16<!<reset>!> system, politely - if it may
+    have <!<fg red; bold; underline>!>n<!<reset>!> segments and please can they be <!<fg red; bold; underline>!>n<!<reset>!> bytes in
+    size - the system might be configured to say no to
+    any one or all of these requests.
+
+
+  <!<bold>!>Stack<!<bold>!> and <!<bold>!>base<!<bold>!> pointers
+
+    Note that the <!<bold>!>--maxaddr<!<bold>!> will set the initial values
+    of the <!<bold>!>stack<!<bold>!> and <!<bold>!>base pointer registers<!<bold>!>. If we run
+    with the default <!<bold>!>--maxaddr<!<bold>!> then the <!<bold>!>stack<!<bold>!> and <!<bold>!>base
+    pointers<!<bold>!> are initialised at <!<fg red; bold>!>0xFFFF<!<reset>!>.
+
+
+  See:
+
+    Additional:
+
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help model<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help regsize<!<reset>!>

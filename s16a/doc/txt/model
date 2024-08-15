@@ -1,0 +1,64 @@
+    Specify a <!<bold>!>memory model<!<bold>!>
+
+
+    By default, <!<fg cyan; bold>!>s16a<!<reset>!> will produce executables that run on
+    a <!<bold>!>flat (<!<fg red>!>0<!<reset>!>) memory model. This means the <!<bold>!>read-only<!<bold>!>,
+    <!<bold>!>read-write<!<bold>!> and <!<bold>!>code sections<!<bold>!> all live in the same
+    memory <!<bold>!>segment<!<bold>!>.
+
+    We can run <!<fg cyan; bold>!>s16<!<reset>!> using one of three memory models:
+
+        <!<fg red; bold>!>0<!<reset>!>: <!<bold>!>flat<!<bold>!> (default)
+        <!<fg red; bold>!>1<!<reset>!>: <!<bold>!>split<!<bold>!> 
+        <!<fg red; bold>!>2<!<reset>!>: <!<bold>!>multi<!<bold>!> 
+
+    Which can be set at the command line using the <!<bold>!>--model<!<bold>!>
+    option:
+
+        <!<fg green>!>//  Assemble executable for a split memory model.
+        //<!<fg white>!>
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --model split<!<reset>!>
+
+
+  <!<bold>!>Split model<!<bold>!>
+
+    In the <!<bold>!>split<!<bold>!> model - the <!<bold>!>read-only<!<bold>!> and <!<bold>!>read-write<!<bold>!>
+    sections will both <!<bold>!>share a single segment<!<bold>!>, the <!<bold>!>code
+    and stack<!<bold>!> will share <!<bold>!>their own segment<!<bold>!>. Any unused
+    segment space can be used as heap storage.
+
+    This depends on whether the <!<fg cyan; bold>!>s16<!<reset>!> application is able
+    to give you the segments you require, it might be
+    configured to only give you one or two segments.
+
+    Let's assume that <!<fg cyan; bold>!>s16<!<reset>!> is giving us a maximum of
+    <!<fg red; bold>!>4<!<reset>!> segments, in <!<bold>!>split<!<bold>!> mode we ask for <!<fg red; bold>!>2<!<reset>!> and are
+    allocated segments <!<fg red; bold>!>0<!<reset>!> and <!<fg red; bold>!>1<!<reset>!>, the <!<bold>!>code and stack<!<bold>!>
+    would reside in segment <!<fg red; bold>!>0<!<reset>!> and the <!<bold>!>read-only<!<bold>!> and
+    <!<bold>!>read-write<!<bold>!> sections in segment <!<fg red; bold>!>1<!<reset>!>.
+
+    The s16 system might instead give us segments <!<fg red; bold>!>1<!<reset>!>
+    and <!<fg red; bold>!>2<!<reset>!>, or <!<fg red; bold>!>3<!<reset>!> and <!<fg red; bold>!>3<!<reset>!> as some segments might already
+    be occupied by running processes. If we're given
+    segments <!<fg red; bold>!>2<!<reset>!> and <!<fg red; bold>!>3<!<reset>!>, as an example - then the <!<bold>!>code
+    and stack<!<bold>!> reside in segment <!<fg red; bold>!>2<!<reset>!> and the <!<bold>!>read-only<!<bold>!>
+    and <!<bold>!>read-write<!<bold>!> sections resize in segment <!<fg red; bold>!>3<!<reset>!>.
+
+
+  <!<bold>!>Multi model<!<bold>!>
+
+    In a <!<bold>!>multi<!<bold>!> model the executable will require <!<fg red; bold>!>2<!<reset>!>
+    segments to run, the first will house the <!<bold>!>code
+    and stack<!<bold>!>, the second the <!<bold>!>read-only<!<bold>!> data and
+    the third the <!<bold>!>read-write<!<bold>!> data.
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --model multi<!<reset>!>
+
+    This means the <!<fg cyan; bold>!>s16<!<reset>!> system will need to allocate
+    three segments for the executable to load and
+    run.
+
+    The <!<bold>!>code and stack<!<bold>!> will always reside in the
+    first allocated segment, the <!<bold>!>read-only<!<bold>!> section
+    in the second and the <!<bold>!>read-write<!<bold>!> section in the
+    third.

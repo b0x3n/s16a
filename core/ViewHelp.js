@@ -438,7 +438,7 @@
                 }
                 
 
-                output_callback(`${__description}\n`);
+                output_callback(`\n${__description}\n`);
             }
             else
             {

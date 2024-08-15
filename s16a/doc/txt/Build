@@ -1,4 +1,62 @@
-<!<bold>!>Build<!<reset>!> mode.
+  <!<bold>!>Build<!<reset>!> mode.
 
-    One two three.
-    
+    <!<fg cyan; bold>!>s16a<!<reset>!> always runs in <!<bold>!>build<!<bold>!> mode by default. In build
+    mode, <!<fg cyan; bold>!>s16a<!<reset>!> wants to produce an <!<bold>!>executable file<!<bold>!> that
+    can be loaded and run in the <!<fg cyan; bold>!>s16<!<reset>!> environment.
+
+    We can build any combination of <!<bold>!>assembly<!<bold>!> and <!<bold>!>object<!<bold>!>
+    input files.
+
+    Any assembly input files will be assembled into an
+    object, any object input files will be loaded and
+    all objects will be <!<bold>!>merged<!<bold>!> before <!<bold>!>linking<!<bold>!>.
+
+
+  <!<bold>!>Build<!<bold>!> from <!<bold>!>source<!<bold>!>:
+
+    We can build an executable directly from <!<bold>!>assembly
+    source files<!<bold>!> by specifying one or more assembly
+    source files using the <!<bold>!>--asm<!<bold>!> option:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --asm<!<fg green; bold>!> file_1 file_2<!<fg white; bold>!> --out<!<fg green; bold>!> s16.exe<!<reset>!>
+
+    Both source files will be processed and assembled
+    into an object, which is then linked into an
+    executable file named s16.exe.
+
+
+  <!<bold>!>Build<!<bold>!> from <!<bold>!>object files<!<bold>!>:
+
+    In this case we can use the <!<bold>!>--obj<!<bold>!> option to specify
+    one or more <!<bold>!>object input files<!<bold>!>:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --obj<!<fg green; bold>!> file_1 file_2<!<fg white; bold>!> --out<!<fg green; bold>!> s16.exe<!<reset>!>
+
+    Both objects will be <!<bold>!>merged<!<bold>!> before being <!<bold>!>linked<!<bold>!>
+    into an executable.
+
+
+  <!<bold>!>Build<!<bold>!> from a <!<bold>!>combination of files<!<bold>!>:
+
+    We can mix and match any combination of <!<bold>!>assembly<!<bold>!>
+    and <!<bold>!>object<!<bold>!> files in a build:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --asm<!<fg green; bold>!> file_1<!<fg white;bold>!> --obj<!<fg green; bold>!> file_2 <!<fg white; bold>!>--out <!<fg green; bold>!>s16.exe<!<reset>!>
+
+    Any <!<bold>!>assembly<!<bold>!> files will first be assembled into
+    an <!<bold>!>object<!<bold>!>, then <!<bold>!>object<!<bold>!> files will be loaded and
+    all objects <!<bold>!>merged<!<bold>!> before <!<bold>!>linking<!<bold>!>.
+
+
+  Also see:
+
+    Options:
+
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --asm<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --obj<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --out<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --mode<!<reset>!>
+
+    Additional:
+
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help assemble<!<reset>!>

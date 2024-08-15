@@ -17,16 +17,16 @@
     <!<bold>!>single object<!<bold>!> that can be written to an output file.
 
 
-    See:
+  See:
 
-        Options:
+    Options:
 
-            node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --asm<!<reset>!>
-            node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --obj<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --asm<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --obj<!<reset>!>
 
-        Additional:
+    Additional:
 
-            node <!<fg cyan; bold>!>s16a<!<fg white>!> --help assemble<!<reset>!>
-            node <!<fg cyan; bold>!>s16a<!<fg white>!> --help build<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help assemble<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help build<!<reset>!>
 
     For more detailed information.

@@ -1,4 +1,4 @@
-    <!<bold>!>Assemble<!<reset>!> mode.
+  <!<bold>!>Assemble<!<reset>!> mode.
 
     In the default <!<bold>!>build<!<bold>!> mode, <!<fg cyan; bold>!>s16a<!<reset>!> wants to produce a
     <!<bold>!>binary<!<bold>!> that can be loaded and executed in the <!<fg cyan; bold>!>s16<!<reset>!>
@@ -60,15 +60,15 @@
         node <!<fg cyan; bold>!>s16a<!<fg white>!> --asm<!<fg green; bold>!> file_3<!<fg white; bold>!> --obj<!<fg green; bold>!> merged<!<fg white; bold>!> --out<!<fg green; bold>!> <!<fg green>!>merged_2<!<fg white; bold>!> --mode assemble<!<reset>!>
 
 
-    Also see:
+  Also see:
 
-      Options:
+    Options:
 
-        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --asm<!<reset>!>
-        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --obj<!<reset>!>
-        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --mode<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --asm<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --obj<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --out<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --mode<!<reset>!>
 
-      Additional:
+    Additional:
 
-        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help build<!<reset>!>
-    
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --help build<!<reset>!>

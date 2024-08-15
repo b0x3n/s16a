@@ -12,8 +12,8 @@
         node <!<fg cyan; bold>!>s16a<!<fg white>!> --max <!<fg red>!>3<!<reset>!>
 
 
-    Also see:
+  Also see:
 
-      Options:
+    Options:
             
-        node <!<fg cyan; bold>!>s16a<!<fg white>!> --depth<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --depth<!<reset>!>

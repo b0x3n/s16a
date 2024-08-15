@@ -21,9 +21,9 @@
     files they include may not, and so on.
 
 
-    Also see:
+  Also see:
 
-      Options:
+    Options:
             
-        node <!<fg cyan; bold>!>s16a<!<fg white>!> --max<!<reset>!>
+      node <!<fg cyan; bold>!>s16a<!<fg white>!> --max<!<reset>!>
     

@@ -16,7 +16,7 @@ object files into an __s16__ executable.
 The binaries produced are not compatible with the current
 version of __s16__:
 
-    [demo](https://b0x3n.github.io/system16)
+    View the [demo] (https://b0x3n.github.io/system16)
 
 So I'm currently re-building the front end to take
 advantage of some of the new features.

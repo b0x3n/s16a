@@ -1,0 +1,74 @@
+    <!<bold>!>Assemble<!<reset>!> mode.
+
+    In the default <!<bold>!>build<!<bold>!> mode, <!<fg cyan; bold>!>s16a<!<reset>!> wants to produce a
+    <!<bold>!>binary<!<bold>!> that can be loaded and executed in the <!<fg cyan; bold>!>s16<!<reset>!>
+    environment - it doesn't care what input files it
+    gets, they can be <!<bold>!>assembly source files<!<bold>!> or <!<bold>!>object
+    files<!<bold>!>, or any combination of the two.
+
+    <!<bold>!>Object files<!<bold>!> are partially assembled and checked
+    source files that can be <!<bold>!>linked<!<bold>!> into an executable.
+
+    When we run <!<fg cyan; bold>!>s16a<!<reset>!> and specify a set of assembly
+    input files:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --asm <!<fg green; bold>!>file_1 file_2 file_2<!<reset>!>
+
+    The assembler will process the files and assemble
+    them into a <!<bold>!>single object<!<bold>!> - in <!<bold>!>build<!<bold>!> mode it will
+    then immediately <!<bold>!>link<!<reset>!> the object into an executable
+    and write it to a file.
+
+    <!<bold>!>Assemble<!<bold>!> mode allows us to write object files
+    <!<bold>!>without linking<!<bold>!>, this allows us to write libraries
+    of reusable code that don't require assembly which
+    can help speed up the <!<bold>!>build<!<bold>!> process.
+
+
+  Setting the <!<bold>!>--mode<!<bold>!>
+
+    We can tell <!<fg cyan; bold>!>s16a<!<reset>!> to run in <!<bold>!>assemble<!<bold>!> mode using the
+    <!<bold>!>--mode<!<bold>!> command-line option:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --mode assemble --asm <!<fg green; bold>!>file_1 file_2 file_3<!<fg white; bold>!> --out<!<reset>!> <!<fg green>!>object_file<!<reset>!>
+
+    Now, <!<fg cyan; bold>!>s16a<!<reset>!> will assemble the source files and produce
+    a <!<bold>!>single object<!<bold>!> which is written to an output file.
+
+    We can then link this object into an executable by
+    running <!<fg cyan; bold>!>s16a<!<reset>!> in the default mode:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --obj<!<reset; fg green>!> object_file<!<fg white; bold>!> --out <!<fg green; bold>!>s16.exe<!<reset>!>
+
+    
+  Merging
+
+    <!<bold>!>Assembly<!<bold>!> mode can also be used to <!<bold>!>merge objects<!<bold>!>, for
+    example - we might have two separate object files:
+
+        <!<fg green>!>object_1
+        object_2<!<reset>!>
+
+    We can <!<bold>!>merge<!<bold>!> these into a <!<bold>!>single object<!<bold>!> file using
+    a command like:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --obj<!<reset; fg green>!> object_1 object_2<!<fg white; bold>!> --out<!<fg green; bold>!> merged<!<fg white; bold>!> --mode assemble<!<reset>!>
+
+    We can also include <!<bold>!>assembly<!<bold>!> source files in a merge
+    or a <!<bold>!>build<!<bold>!>:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --asm<!<fg green; bold>!> file_3<!<fg white; bold>!> --obj<!<fg green; bold>!> merged<!<fg white; bold>!> --out<!<fg green; bold>!> <!<fg green>!>merged_2<!<fg white; bold>!> --mode assemble<!<reset>!>
+
+
+    Also see:
+
+      Options:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --asm<!<reset>!>
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --obj<!<reset>!>
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --mode<!<reset>!>
+
+      Additional:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help build<!<reset>!>
+    

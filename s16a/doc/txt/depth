@@ -1,0 +1,29 @@
+    Specify the maximum number of includes.
+    
+    By default, the <!<bold>!>max include depth<!<reset>!> is set to <!<fg red; bold>!>0<!<reset>!> which
+    means there is no limit on the <!<bold>!>include depth<!<bold>!> for
+    <!<bold>!>assembly<!<bold>!> files.
+
+    Setting this to a value greater than <!<fg red; bold>!>0<!<reset>!> will limit
+    the number of possible <!<italic>!>nested<!<italic>!> includes (files that
+    .<!<fg cyan>!>include<!<reset>!> files):
+
+        <!<fg green>!>// No deeper than 1.
+        //<!<reset>!>
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --depth <!<fg red>!>1<!<reset>!>
+
+    If we set it to <!<fg red; bold>!>1<!<reset>!>, then only <!<bold>!>assembly<!<bold>!> files that
+    are <!<bold>!>specified at the command line<!<bold>!> may be included,
+    the .<!<fg cyan>!>include<!<reset>!> directive is essentially turned off.
+
+    If we set it to <!<fg red; bold>!>2<!<reset>!>, then the files we specify at
+    the command line may issue .<!<fg cyan>!>include<!<reset>!> directives but
+    files they include may not, and so on.
+
+
+    Also see:
+
+      Options:
+            
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --max<!<reset>!>
+    

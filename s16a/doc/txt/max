@@ -1,0 +1,19 @@
+    Specify the maximum number of <!<bold>!>assembly<!<bold>!> include files.
+    
+    By default, <!<bold>!>max<!<bold>!> is set to <!<fg red; bold>!>0<!<reset>!> which means there is no
+    limit on the <!<bold>!>include max<!<bold>!>.
+
+    If we set <!<bold>!>max<!<bold>!> to a value greater than <!<fg red; bold>!>0<!<reset>!> this limits
+    the number of <!<bold>!>assembly<!<bold>!> input files that can be included
+    either at the command line or using .<!<fg blue; bold>!>include<!<fg white>!> directives<!<reset>!>
+    from within a source file:
+
+        <!<fg green>!>// Limit includes to <!<bold>!>3<!<reset>!>
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --max <!<fg red>!>3<!<reset>!>
+
+
+    Also see:
+
+      Options:
+            
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --depth<!<reset>!>

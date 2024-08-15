@@ -1,0 +1,28 @@
+    Specify one or more <!<bold>!>object<!<bold>!> input files.
+
+    The <!<bold>!>--obj<!<bold>!> option is used to specify one or more <!<bold>!>object<!<bold>!>
+    input files:
+
+        node <!<fg cyan; bold>!>s16a<!<reset>!> <!<bold>!>--obj<!<bold>!> <!<fg green>!>file_1 file_2 file_3<!<reset>!>
+
+    In the default <!<bold>!>build<!<bold>!> mode, the three input files:
+
+        <!<fg green>!>file_1
+        file_2
+        file_3<!<reset>!>
+
+    Will be <!<bold>!>merged<!<bold>!> into a single <!<bold>!>object<!<bold>!> which is then <!<bold>!>linked<!<bold>!>
+    into an <!<fg cyan; bold>!>s16<!<reset>!> exectuable.
+
+    See:
+
+      Options:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help --mode<!<reset>!>
+
+      Additional:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help assemble<!<reset>!>
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --help build<!<reset>!>
+
+    For more detailed information.

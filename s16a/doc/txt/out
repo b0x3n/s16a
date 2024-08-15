@@ -1,0 +1,25 @@
+    Specify an output file.
+    
+    By default, <!<fg cyan; bold>!>s16a<!<reset>!> writes output to a file named:
+
+        <!<fg green>!>out.s16<!<reset>!>
+
+    The <!<bold>!>--out<!<bold>!> option can be used to specify a custom file
+    name:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> --out <!<bold; fg green>!>file_name<!<reset>!>
+
+    <!<fg cyan; bold>!>s16a<!<reset>!> doesn't care about extensions, so the <!<bold>!>.s16<!<bold>!>
+    extension is not a requirement.
+
+    The <!<bold>!>--out<!<bold>!> option is used to specify an output file
+    regardless of whether <!<fg cyan; bold>!>s16a<!<reset>!> is running in <!<bold>!>build<!<bold>!> mode
+    or <!<bold>!>assembly<!<bold>!> mode.
+
+
+    Also see:
+
+      Additional:
+
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> assemble<!<reset>!>
+        node <!<fg cyan; bold>!>s16a<!<fg white>!> build<!<reset>!>

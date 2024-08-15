@@ -1,0 +1,36 @@
+///////////////////////////////////////////////////////////
+//  System16/s16a/doc/index                              //
+///////////////////////////////////////////////////////////
+//
+//  Help index for the s16 assembler (s16a)
+//
+
+TITLE         "<!<fg cyan; bold>!>s16<!<reset>!> assembler (<!<reset>!>s16a<!<reset>!>)"
+DESCRIPTION   "  Assemble <!<fg cyan; bold>!>s16a<!<reset>!> source files."
+
+OPTION asm "    <!<bold>!>--asm<!<bold>!>" "node <!<fg cyan; bold>!>s16a<!<reset>!> --<!<bold>!>asm<!<bold>!> <<!<fg green; underline>!>file<!<reset>!> <!<bold>!>...<!<bold>!>>" "Specify one or more assembly input files"
+OPTION obj "    <!<bold>!>--obj<!<bold>!>" "node <!<fg cyan; bold>!>s16a<!<reset>!> --<!<bold>!>obj<!<bold>!> <<!<fg green; underline>!>file<!<reset>!> <!<bold>!>...<!<bold>!>>" "Specify one or more object input files"
+OPTION out "    <!<bold>!>--out<!<bold>!>" "node <!<fg cyan; bold>!>s16a<!<reset>!> --<!<bold>!>out<!<bold>!> <<!<fg green; underline>!>file<!<reset>!>>" "Specify an output file"
+OPTION max "    <!<bold>!>--max<!<bold>!>" "node <!<fg cyan; bold>!>s16a<!<reset>!> --<!<bold>!>max<!<bold>!> <!<fg red; bold>!>number<!<reset>!>" "Specify max includes"
+OPTION depth "    <!<bold>!>--depth<!<bold>!>" "node <!<fg cyan; bold>!>s16a<!<reset>!> --<!<bold>!>depth<!<bold>!> <!<fg red; bold>!>number<!<reset>!>" "Specify max include depth"
+OPTION mode "    <!<bold>!>--mode<!<bold>!>" "node <!<fg cyan; bold>!>s16a<!<reset>!> --<!<bold>!>mode<!<bold>!> <!<fg magenta; bold>!>(build|assemble)<!<reset>!>" "Specify <!<fg cyan; bold>!>s16a<!<reset>!> running mode"
+
+SWITCH c "    <!<bold>!>-c<!<bold>!>" "node <!<fg cyan>!>s16a<!<reset>!> -<!<bold>!>c<!<reset>!>" "Disable terminal attributes (colour, bold, etc)"
+SWITCH e "    <!<bold>!>-e<!<bold>!>" "node <!<fg cyan>!>s16a<!<reset>!> -<!<bold>!>e<!<reset>!>" "Exit on warnings/non-fatal errors"
+SWITCH w "    <!<bold>!>-w<!<bold>!>" "node <!<fg cyan>!>s16a<!<reset>!> -<!<bold>!>w<!<reset>!>" "Report warnings/non-fatal errors"
+SWITCH v "    <!<bold>!>-v<!<bold>!>" "node <!<fg cyan>!>s16a<!<reset>!> -<!<bold>!>v<!<reset>!>" "Enable verbose output"
+
+DETAIL asm PATH "./txt/asm"
+DETAIL obj PATH "./txt/obj"
+DETAIL out PATH "./txt/out"
+DETAIL max PATH "./txt/max"
+DETAIL depth PATH "./txt/depth"
+DETAIL mode PATH "./txt/mode"
+
+DETAIL c "    Disable <!<fg magenta; bold>!>coloured<!<reset>!> output and <!<bold; underline>!>attributes<!<reset>!>"
+DETAIL e "    Exit on non-fatal errors (<!<fg red>!>warnings<!<reset>!>)"
+DETAIL w "    Report non-fatal errors (<!<fg red>!>warnings<!<reset>!>)"
+DETAIL v "    Enable verbose output during <!<bold>!>assembly/merging/linking<!<bold>!>"
+
+ADDITIONAL assemble "More about <!<bold>!>assembly<!<bold>!> mode" PATH "./txt/assemble"
+ADDITIONAL build "More about <!<bold>!>build<!<bold>!> mode" PATH "./txt/Build"

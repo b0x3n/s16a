@@ -21,5 +21,11 @@ version of s16:
 So I'm re-building the front end to take advantage of some
 of the new features.
 
+You can view help using the __help__ option:
+
+    `node s16a --help`
+
+Am still implementing instructions as I go.
+
 Will update soon.
 

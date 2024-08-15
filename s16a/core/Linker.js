@@ -240,11 +240,11 @@
 
                     for (let item_no = 0; item_no < __data.length; item_no++)
                     {
-                        if (__type === 1)
+                        if (__type === '1')
                             __exe_view.setUint8(__data_offset, __data[item_no]);
-                        if (__type === 2)
+                        if (__type === '2')
                             __exe_view.setUint16(__data_offset, __data[item_no], global.little_endian);
-                        if (__type === 4)
+                        if (__type === '4')
                             __exe_view.setUint32(__data_offset, __data[item_no], global.little_endian);
                     
                         __data_offset += parseInt(__type);
@@ -395,6 +395,9 @@
 
             global.__s16_verbose(`<!<fg blue>!>+---<!<reset>!> Mapping ${global.__s16a_keyword('function')} ${global.__s16a_label(function_name)} @ offset ${global.__s16a_number(code_offset)}\n`);
 
+            if (typeof data === 'undefined')
+                return false;
+            
             for (let line_no = 0; line_no < data.length; line_no++)
             {
 
@@ -417,8 +420,8 @@
     //  The opcode and modifiers are the first two bytes
     //  of every line.
     //
-                __exe_view.setUint8(code_offset++, data[0]);
-                __exe_view.setUint8(code_offset++, data[1]);
+                __exe_view.setUint8(code_offset++, data[line_no][0]);
+                __exe_view.setUint8(code_offset++, data[line_no][1]);
 
                 for (let param_no = 0; param_no < __params.length; param_no++)
                 {
@@ -521,6 +524,9 @@
                         __response
                     );
 
+                if (__response === false)
+                    continue;
+
                 __code_offset += __length;
 
                 global.__s16_verbose(`<!<fg blue>!>+---<!<reset>!> Done mapping ${global.__s16a_label(__function_name)}, ${global.__s16a_number(__data.length)} lines, ${global.__s16a_number(__length)} bytes\n`)
@@ -604,9 +610,63 @@
             if (_objExe.main_offset === 0)
                 global.__s16_error(`There is no <!<bold>!>_main<!<reset>!> function`);
 
+            global.__s16_verbose(`<!<fg blue>!>|\n<!<reset>!>`);
+
+            _dump_section(global.S16_SECTION_RO);
+            _dump_section(global.S16_SECTION_RW);
+            _dump_section(global.S16_SECTION_CODE);
+
             global.__s16_verbose(`<!<fg blue>!>|<!<reset>!>\n`);
 
         };
+
+
+        const   _dump_section           = section =>
+        {
+
+            let __offset                = _objExe.ro_offset;
+            let __end                   = _objExe.rw_offset;
+
+            let __section               = global.S16_SECTION_RO;
+
+            if (section === global.S16_SECTION_RW)
+            {
+                __offset                = _objExe.rw_offset;
+                __end                   = _objExe.code_offset;
+                __section               = global.S16_SECTION_RW;
+            }
+
+            if (section === global.S16_SECTION_CODE)
+            {
+                __offset                = _objExe.code_offset;
+                __end                   = _objExe.size;
+                __section               = global.S16_SECTION_CODE;
+            }
+            
+            global.__s16_verbose(`<!<fg blue>!>+-_<!<reset>!> Dumping ${global.__s16a_section(__section)} section:\n<!<fg blue>!>|\n<!<reset>!>`);
+        
+            const   __exe_view          = new DataView(_objExe.buffer);
+            let     __chunk             = 0;
+
+            while (__offset < __end)
+            {
+
+                if (! __chunk || ! (__chunk % 8))
+                {
+                    if (__chunk)
+                        global.__s16_verbose(`\n`);
+
+                    global.__s16_verbose(`<!<fg blue>!>+---<!<reset>!> `);   
+                }
+
+                global.__s16_verbose(`\t${global.__s16a_number(__exe_view.getUint8(__offset++))}`);
+
+                __chunk++;
+            }
+
+            global.__s16_verbose(`\n<!<fg blue>!>|\n<!<reset>!>`);
+        
+        };  
 
 
         __initialise();
